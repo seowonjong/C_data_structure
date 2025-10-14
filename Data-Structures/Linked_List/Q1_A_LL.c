@@ -14,7 +14,7 @@ Purpose: Implementing the required functions for Question 1 */
 typedef struct _listnode{
 	int item;
 	struct _listnode *next;
-} ListNode;			// You should not change the definition of ListNode
+}ListNode;			// You should not change the definition of ListNode
 
 typedef struct _linkedlist{
 	int size;
@@ -90,6 +90,17 @@ int main()
 
 int insertSortedLL(LinkedList *ll, int item)
 {
+    ListNode* cur = ll->head;
+    for(int i=0;i<ll->size;i++){
+        if(cur->item > item){
+            insertNode(ll,i,item);
+            return i;
+        }
+        else if(cur->item == item){
+            return -1;
+        }
+        cur = cur->next;
+    }
 	/* add your code here */
 }
 
