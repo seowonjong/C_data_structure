@@ -103,8 +103,38 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
+    if (ll1 == NULL || ll2 == NULL){
+        return;
+    }
+    if (ll1->head == NULL){
+        return;
+    }
+    if (ll2->head == NULL){
+        return;
+    }
+
+    int i = 0;
+
+    // ll2에 남은 노드가 있고 ll1 인덱스 위치가 유효할 동안 반복
+    while (findNode(ll1, i) != NULL && ll2->head != NULL)
+    {
+        // ll2의 첫 번째 노드 값 가져오기
+        ListNode *node2 = findNode(ll2, 0);
+        int value = node2->item;
+
+        // ll1의 (i+1)번째 위치에 ll2의 값을 삽입
+        insertNode(ll1, i + 1, value);
+
+        // ll2에서 첫 번째 노드 제거
+        removeNode(ll2, 0);
+
+        // 다음 삽입은 두 칸 뒤 (교차 삽입)
+        i += 2;
+    }
     /* add your code here */
-}
+}  
+    
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -170,7 +200,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	if (ll == NULL || index < 0 || index > ll->size + 1)
 		return -1;
 
-	// If empty list or inserting first node, need to update head pointer
+	// If empty list or in  serting first node, need to update head pointer
 	if (ll->head == NULL || index == 0){
 		cur = ll->head;
 		ll->head = malloc(sizeof(ListNode));
